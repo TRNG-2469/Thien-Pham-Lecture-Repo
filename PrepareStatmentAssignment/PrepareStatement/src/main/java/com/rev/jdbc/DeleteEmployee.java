@@ -1,8 +1,8 @@
 package com.rev.jdbc;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import com.rev.jdbc.dao.JdbcEmployeeDao;
+import com.rev.jdbc.service.EmployeeDataAccessException;
+import com.rev.jdbc.service.EmployeeService;
 
 public class DeleteEmployee {
 
@@ -11,32 +11,11 @@ public class DeleteEmployee {
         // ID of the employee that we want to delete.
         int employeeId = 4;
 
-        /*
-         * The placeholder represents the employee ID.
-         *
-         * The WHERE clause is extremely important. Without WHERE,
-         * every employee row would be deleted.
-         */
-        String sql = """
-                DELETE FROM employees
-                WHERE emp_id = ?
-                """;
+        EmployeeService employeeService =
+                new EmployeeService(new JdbcEmployeeDao());
 
-        try (
-                Connection connection =
-                        DatabaseConnection.getConnection();
-
-                PreparedStatement preparedStatement =
-                        connection.prepareStatement(sql)
-        ) {
-
-            // Replace the first ? with employeeId.
-            preparedStatement.setInt(1, employeeId);
-
-            // Execute the DELETE and receive the number of deleted rows.
-            int rowsDeleted = preparedStatement.executeUpdate();
-
-            if (rowsDeleted == 1) {
+        try {
+            if (employeeService.deleteEmployee(employeeId)) {
                 System.out.println("Employee deleted successfully.");
             } else {
                 System.out.println(
@@ -44,18 +23,12 @@ public class DeleteEmployee {
                 );
             }
 
-        } catch (SQLException exception) {
-
-            System.err.println(
-                    "Database error during deletion: "
-                            + exception.getMessage()
-            );
-
-        } catch (IllegalStateException exception) {
-
-            System.err.println(
-                    "Configuration error: " + exception.getMessage()
-            );
+        } catch (EmployeeDataAccessException exception) {
+            System.err.println("Database error during deletion: "
+                    + exception.getCause().getMessage());
+        } catch (IllegalArgumentException | IllegalStateException exception) {
+            System.err.println("Configuration or validation error: "
+                    + exception.getMessage());
         }
     }
 }
