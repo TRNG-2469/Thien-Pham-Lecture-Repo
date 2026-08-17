@@ -20,6 +20,20 @@
         <property name = "address" ref = "address1"/>
     </bean>
 
+    <!-- car via constructor -->
+    <bean id = "car1" class ="com.revature.ce.Car">
+        <constructor-arg value = "Honda"/>
+        <constructor-arg value = "15000"/>
+        <constructor-arg ref = "engine1"/>
+    </bean>
+
+    <bean id = "engine1" class ="com.revature.ce.Engine">
+        <constructor-arg value = "V8"/>
+        <constructor-arg value = "500"/>
+
+    </bean>
+
+
 
 
 </beans>
