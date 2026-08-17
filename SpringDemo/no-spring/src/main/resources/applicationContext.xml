@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+		https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- more bean definitions go here -->
+    <!-- bean for address setter injection -->
+    <bean id ="address1" class ="com.revature.ea.Address">
+        <property name="city" value = "New York"/>
+        <property name="state" value = "NY"/>
+        <property name="zipCode" value = "1001"/>
+    </bean>
+
+    <bean id = "employee1" class = "com.revature.ea.Employee">
+        <property name = "id" value = "1105"/>
+        <property name = "name" value = "Jackson Nguyen"/>
+        <property name = "salary" value = "65000"/>
+        <!-- when an object is getting another objectm we use ref for the value being pass ot it and point to the object -->
+        <property name = "address" ref = "address1"/>
+    </bean>
+
+
+
+</beans>
