@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- bean definitions here -->
+    <bean id ="bbCoach" class ="com.rev.sp.BaseBallCoach"
+          init-method="myInit" destroy-method="myCleanUp"/>
+
+    <bean id = "hf" class = "com.rev.sp.BaseBallCoach">
+            <!-- injecting the hf  ^^ via a constructor -->
+            <constructor-arg ref ="hf"/>
+        <!-- injecting the hf  ^^ via a setter inecjtion -->
+        <property name="hf" ref ="hf"/>
+
+
+    </bean>
+
+    <!-- student1: built via CONSTRUCTOR injection -->
+    <!-- Spring matches these constructor-args, in order, to Student(int id, String name, int age) -->
+    <bean id ="student1" class="com.rev.sp.Student">
+        <constructor-arg value ="John Macadoo"/>
+        <constructor-arg value="20"/>
+        <constructor-arg value ="1011"/>
+    </bean>
+
+
+    <!-- student2: built via SETTER injection -->
+    <!-- Spring calls the no-arg Student() constructor, then setId(), setName(), setAge() -->
+    <bean id = "student2" class = "com.rev.sp.Student">
+        <property name ="name" value="Andrea"/>
+        <property name="age" value ="25"/>
+        <property name="id" value ="1177"/>
+
+    </bean>
+
+
+</beans>
