@@ -33,6 +33,18 @@
 
     </bean>
 
+    <bean id = "student1" class = "com.rev.sc.Student">
+        <property name = "id" value = "112371"/>
+        <property name= "name" value = "Johnny Dept"/>
+        <property name = "course" ref = "course1"/>
+    </bean>
+
+    <bean id = "course1" class = "com.rev.sc.Course">
+        <property name = "courseName" value = "Java"/>
+        <property name = "courseID" value = "CSCI 1002"/>
+        <property name = "duration" value = "6 months"/>
+    </bean>
+
 
 
 
